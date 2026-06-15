@@ -52,7 +52,6 @@ text-align:center;
 margin:10px 0;
 }
 
-/* 🔥 QR SIZE FIX */
 .qr img{
 width:150px;
 height:150px;
@@ -171,7 +170,7 @@ font-size:20px;
 <div class="container">
 
 <div class="amount">
-<div class="price" id="price">₹2943.46</div>
+<div class="price" id="price">₹0.00</div>
 <div class="timer" id="timer">08:00</div>
 <div style="font-size:14px;">Scan QR to pay</div>
 </div>
@@ -187,9 +186,7 @@ font-size:20px;
 <img src="https://pwebassets.paytm.com/commonwebassets/paytmweb/header/images/logo_new.svg">
 <div class="pay-name">Paytm</div>
 </div>
-<button class="pay-btn"
-onclick="window.location.href='upi://pay?pa=8400672605@mbk&pn=Payment&am=2943.46&cu=INR'">
-Pay</button>
+<button class="pay-btn" id="paytmBtn">Pay</button>
 </div>
 
 <div class="pay-box">
@@ -197,9 +194,7 @@ Pay</button>
 <img src="https://download.logo.wine/logo/PhonePe/PhonePe-Logo.wine.png">
 <div class="pay-name">PhonePe</div>
 </div>
-<button class="pay-btn"
-onclick="window.location.href='upi://pay?pa=8400672605@mbk&pn=Payment&am=2943.46&cu=INR'">
-Pay</button>
+<button class="pay-btn" id="phonepeBtn">Pay</button>
 </div>
 
 <div class="manual">
@@ -207,11 +202,11 @@ Pay</button>
 <div class="blue">UPI ID</div>
 
 <div class="upi-box">
-<input type="text" id="upi" value="8400672605@mbk">
+<input type="text" id="upi" value="">
 <button class="copy-btn" onclick="copyUPI()">Copy</button>
 </div>
 
-<div class="tip">Tip: UPI change ho sakta hai</div>
+<div class="tip">Tip: UPI or amount URL se change ho sakta hai</div>
 
 <div class="blue">UTR Number</div>
 
@@ -235,13 +230,44 @@ SUBMIT
 
 <script>
 
-let globalAmount = "2943.46";
+let globalAmount = "0.00";
 
 function copyUPI(){
 navigator.clipboard.writeText(document.getElementById("upi").value);
 alert("UPI Copied");
 }
 
+// QR update
+function updateQR(){
+let upi = document.getElementById("upi").value;
+
+let upiLink =
+"upi://pay?pa="+encodeURIComponent(upi)+
+"&pn=Payment&am="+globalAmount+
+"&cu=INR";
+
+document.getElementById("qrCode").src =
+"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="
++encodeURIComponent(upiLink);
+}
+
+// open payment app
+function openPayApp(){
+let upi = document.getElementById("upi").value;
+
+let link =
+"upi://pay?pa="+encodeURIComponent(upi)+
+"&pn=Payment&am="+globalAmount+
+"&cu=INR";
+
+window.location.href = link;
+}
+
+// buttons
+document.getElementById("paytmBtn").onclick = openPayApp;
+document.getElementById("phonepeBtn").onclick = openPayApp;
+
+// UTR validation
 const utrInput = document.getElementById("utr");
 const submitBtn = document.getElementById("submitBtn");
 
@@ -261,6 +287,7 @@ document.getElementById("paymentPage").style.display="none";
 document.getElementById("successBox").style.display="block";
 }
 
+// timer
 let time = 480;
 
 setInterval(function(){
@@ -273,19 +300,7 @@ String(min).padStart(2,'0') + ":" + String(sec).padStart(2,'0');
 if(time>0) time--;
 },1000);
 
-function updateQR(){
-let upi = document.getElementById("upi").value;
-
-let upiLink =
-"upi://pay?pa="+encodeURIComponent(upi)+
-"&pn=Payment&am="+globalAmount+
-"&cu=INR";
-
-document.getElementById("qrCode").src =
-"https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="
-+encodeURIComponent(upiLink);
-}
-
+// URL params
 function getParams(){
 const urlParams = new URLSearchParams(window.location.search);
 
