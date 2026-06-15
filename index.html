@@ -17,8 +17,6 @@ body{
 background:#f3f3f3;
 }
 
-/* ❌ removed top-bar (fix extra orange space) */
-
 .title{
 background:#ff8500;
 color:#fff;
@@ -31,87 +29,95 @@ padding:15px;
 .container{
 max-width:500px;
 margin:auto;
-padding:20px;
+padding:15px;
 }
 
 .amount{text-align:center;}
 
 .price{
 color:#ff8500;
-font-size:55px;
+font-size:50px;
 font-weight:bold;
-margin:10px 0;
+margin:8px 0;
 }
 
 .timer{
 color:red;
-font-size:40px;
+font-size:32px;
+margin:8px 0;
+}
+
+.qr{
+text-align:center;
 margin:10px 0;
 }
 
-.qr{text-align:center;margin:20px 0;}
-
-.qr img{width:250px;height:250px;}
+/* 🔥 QR SIZE FIX */
+.qr img{
+width:150px;
+height:150px;
+object-fit:contain;
+}
 
 .pay-box{
 background:#fff;
 border:1px solid #ddd;
 border-radius:15px;
-padding:15px;
-margin-top:15px;
+padding:12px;
+margin-top:12px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 }
 
-.pay-left{display:flex;align-items:center;gap:15px;}
+.pay-left{display:flex;align-items:center;gap:12px;}
 
-.pay-left img{width:60px;height:60px;}
+.pay-left img{width:55px;height:55px;}
 
-.pay-name{font-size:24px;font-weight:bold;}
+.pay-name{font-size:22px;font-weight:bold;}
 
 .pay-btn{
 background:#ff8500;
 color:white;
 border:none;
-padding:10px 20px;
+padding:8px 18px;
 border-radius:8px;
 cursor:pointer;
 }
 
 .manual{
 background:white;
-margin-top:20px;
-padding:20px;
+margin-top:15px;
+padding:15px;
 border-radius:15px;
 }
 
-.blue{color:#4f7fe8;font-weight:bold;}
+.blue{color:#4f7fe8;font-weight:bold;font-size:14px;}
 
-.upi-box{display:flex;margin-top:10px;}
+.upi-box{display:flex;margin-top:8px;}
 
 .upi-box input{
 flex:1;
-padding:12px;
-font-size:18px;
+padding:10px;
+font-size:16px;
 }
 
 .copy-btn{
 background:#ff8500;
 color:white;
 border:none;
-padding:0 20px;
+padding:0 15px;
 cursor:pointer;
 }
 
-.tip{color:orange;margin:15px 0;}
+.tip{color:orange;margin:10px 0;font-size:13px;}
 
 .ref-input{
 width:100%;
-padding:12px;
-font-size:18px;
-margin-top:10px;
-margin-bottom:10px;
+padding:10px;
+font-size:16px;
+margin-top:8px;
+margin-bottom:8px;
 }
 
 .submit-btn{
@@ -119,8 +125,8 @@ width:100%;
 background:#ff8500;
 color:white;
 border:none;
-padding:15px;
-font-size:20px;
+padding:12px;
+font-size:18px;
 border-radius:8px;
 cursor:pointer;
 }
@@ -132,14 +138,14 @@ cursor:not-allowed;
 
 #successBox{
 display:none;
-padding:30px;
+padding:20px;
 }
 
 .success-card{
 background:white;
 max-width:500px;
 margin:auto;
-padding:40px 20px;
+padding:30px 15px;
 border-radius:20px;
 text-align:center;
 box-shadow:0 0 15px rgba(0,0,0,.08);
@@ -147,12 +153,12 @@ box-shadow:0 0 15px rgba(0,0,0,.08);
 
 .success-card h1{
 color:orange;
-font-size:42px;
-margin-bottom:20px;
+font-size:34px;
+margin-bottom:15px;
 }
 
 .success-card p{
-font-size:24px;
+font-size:20px;
 }
 </style>
 </head>
@@ -167,14 +173,14 @@ font-size:24px;
 <div class="amount">
 <div class="price" id="price">₹2943.46</div>
 <div class="timer" id="timer">08:00</div>
-<div>Use Mobile Scan code to pay</div>
+<div style="font-size:14px;">Scan QR to pay</div>
 </div>
 
 <div class="qr">
 <img id="qrCode" src="">
 </div>
 
-<h2>Choose a payment method to pay</h2>
+<h3 style="font-size:16px;">Choose payment method</h3>
 
 <div class="pay-box">
 <div class="pay-left">
@@ -198,16 +204,16 @@ Pay</button>
 
 <div class="manual">
 
-<div class="blue">1. Copy UPI</div>
+<div class="blue">UPI ID</div>
 
 <div class="upi-box">
 <input type="text" id="upi" value="8400672605@mbk">
 <button class="copy-btn" onclick="copyUPI()">Copy</button>
 </div>
 
-<div class="tip">Tip: Don't save UPI, it changes every time.</div>
+<div class="tip">Tip: UPI change ho sakta hai</div>
 
-<div class="blue">2. Enter 12 digit UTR</div>
+<div class="blue">UTR Number</div>
 
 <input class="ref-input" id="utr" maxlength="12" placeholder="Enter 12 Digit UTR">
 
@@ -231,13 +237,11 @@ SUBMIT
 
 let globalAmount = "2943.46";
 
-/* COPY UPI */
 function copyUPI(){
 navigator.clipboard.writeText(document.getElementById("upi").value);
 alert("UPI Copied");
 }
 
-/* UTR validation */
 const utrInput = document.getElementById("utr");
 const submitBtn = document.getElementById("submitBtn");
 
@@ -246,7 +250,6 @@ this.value = this.value.replace(/\D/g,'');
 submitBtn.disabled = this.value.length !== 12;
 });
 
-/* SUCCESS */
 function showSuccess(){
 const utr = document.getElementById("utr").value;
 if(!/^\d{12}$/.test(utr)){
@@ -258,7 +261,6 @@ document.getElementById("paymentPage").style.display="none";
 document.getElementById("successBox").style.display="block";
 }
 
-/* TIMER */
 let time = 480;
 
 setInterval(function(){
@@ -271,7 +273,6 @@ String(min).padStart(2,'0') + ":" + String(sec).padStart(2,'0');
 if(time>0) time--;
 },1000);
 
-/* QR UPDATE */
 function updateQR(){
 let upi = document.getElementById("upi").value;
 
@@ -285,7 +286,6 @@ document.getElementById("qrCode").src =
 +encodeURIComponent(upiLink);
 }
 
-/* URL PARAMS */
 function getParams(){
 const urlParams = new URLSearchParams(window.location.search);
 
