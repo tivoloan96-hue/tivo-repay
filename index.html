@@ -13,9 +13,11 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
-body{background:#f3f3f3;}
+body{
+background:#f3f3f3;
+}
 
-.top-bar{height:70px;background:#ff8500;}
+/* ❌ removed top-bar (fix extra orange space) */
 
 .title{
 background:#ff8500;
@@ -23,7 +25,7 @@ color:#fff;
 text-align:center;
 font-size:40px;
 font-weight:bold;
-padding:10px;
+padding:15px;
 }
 
 .container{
@@ -123,9 +125,15 @@ border-radius:8px;
 cursor:pointer;
 }
 
-.submit-btn:disabled{background:#999;cursor:not-allowed;}
+.submit-btn:disabled{
+background:#999;
+cursor:not-allowed;
+}
 
-#successBox{display:none;padding:30px;}
+#successBox{
+display:none;
+padding:30px;
+}
 
 .success-card{
 background:white;
@@ -143,13 +151,14 @@ font-size:42px;
 margin-bottom:20px;
 }
 
-.success-card p{font-size:24px;}
+.success-card p{
+font-size:24px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="top-bar"></div>
 <div class="title">payment</div>
 
 <div id="paymentPage">
@@ -162,8 +171,7 @@ margin-bottom:20px;
 </div>
 
 <div class="qr">
-<img id="qrCode"
-src="">
+<img id="qrCode" src="">
 </div>
 
 <h2>Choose a payment method to pay</h2>
@@ -279,7 +287,6 @@ document.getElementById("qrCode").src =
 
 /* URL PARAMS */
 function getParams(){
-
 const urlParams = new URLSearchParams(window.location.search);
 
 const amount = urlParams.get("amount");
@@ -297,12 +304,10 @@ document.getElementById("upi").value = upi;
 updateQR();
 }
 
-/* RUN ON LOAD */
 window.onload = function(){
 getParams();
 };
 
-/* live UPI change QR */
 document.getElementById("upi")
 .addEventListener("input", updateQR);
 
