@@ -13,14 +13,9 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
-body{
-background:#f3f3f3;
-}
+body{background:#f3f3f3;}
 
-.top-bar{
-height:70px;
-background:#ff8500;
-}
+.top-bar{height:70px;background:#ff8500;}
 
 .title{
 background:#ff8500;
@@ -37,13 +32,7 @@ margin:auto;
 padding:20px;
 }
 
-.amount{
-text-align:center;
-}
-
-.amount-payable{
-font-size:22px;
-}
+.amount{text-align:center;}
 
 .price{
 color:#ff8500;
@@ -58,15 +47,9 @@ font-size:40px;
 margin:10px 0;
 }
 
-.qr{
-text-align:center;
-margin:20px 0;
-}
+.qr{text-align:center;margin:20px 0;}
 
-.qr img{
-width:250px;
-height:250px;
-}
+.qr img{width:250px;height:250px;}
 
 .pay-box{
 background:#fff;
@@ -79,22 +62,11 @@ justify-content:space-between;
 align-items:center;
 }
 
-.pay-left{
-display:flex;
-align-items:center;
-gap:15px;
-}
+.pay-left{display:flex;align-items:center;gap:15px;}
 
-.pay-left img{
-width:60px;
-height:60px;
-object-fit:contain;
-}
+.pay-left img{width:60px;height:60px;}
 
-.pay-name{
-font-size:24px;
-font-weight:bold;
-}
+.pay-name{font-size:24px;font-weight:bold;}
 
 .pay-btn{
 background:#ff8500;
@@ -112,15 +84,9 @@ padding:20px;
 border-radius:15px;
 }
 
-.blue{
-color:#4f7fe8;
-font-weight:bold;
-}
+.blue{color:#4f7fe8;font-weight:bold;}
 
-.upi-box{
-display:flex;
-margin-top:10px;
-}
+.upi-box{display:flex;margin-top:10px;}
 
 .upi-box input{
 flex:1;
@@ -136,10 +102,7 @@ padding:0 20px;
 cursor:pointer;
 }
 
-.tip{
-color:orange;
-margin:15px 0;
-}
+.tip{color:orange;margin:15px 0;}
 
 .ref-input{
 width:100%;
@@ -160,15 +123,9 @@ border-radius:8px;
 cursor:pointer;
 }
 
-.submit-btn:disabled{
-background:#999;
-cursor:not-allowed;
-}
+.submit-btn:disabled{background:#999;cursor:not-allowed;}
 
-#successBox{
-display:none;
-padding:30px;
-}
+#successBox{display:none;padding:30px;}
 
 .success-card{
 background:white;
@@ -186,9 +143,7 @@ font-size:42px;
 margin-bottom:20px;
 }
 
-.success-card p{
-font-size:24px;
-}
+.success-card p{font-size:24px;}
 </style>
 </head>
 
@@ -198,19 +153,17 @@ font-size:24px;
 <div class="title">payment</div>
 
 <div id="paymentPage">
-
 <div class="container">
 
 <div class="amount">
-<div class="amount-payable">Amount Payable</div>
-<div class="price">₹2943.46</div>
+<div class="price" id="price">₹2943.46</div>
 <div class="timer" id="timer">08:00</div>
 <div>Use Mobile Scan code to pay</div>
 </div>
 
 <div class="qr">
 <img id="qrCode"
-src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=8400672605@mbk">
+src="">
 </div>
 
 <h2>Choose a payment method to pay</h2>
@@ -220,7 +173,9 @@ src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=
 <img src="https://pwebassets.paytm.com/commonwebassets/paytmweb/header/images/logo_new.svg">
 <div class="pay-name">Paytm</div>
 </div>
-<button class="pay-btn"onclick="window.location.href='upi://pay?pa=8400672605@mbk&pn=Payment&am=2943.46&cu=INR'">Pay</button>
+<button class="pay-btn"
+onclick="window.location.href='upi://pay?pa=8400672605@mbk&pn=Payment&am=2943.46&cu=INR'">
+Pay</button>
 </div>
 
 <div class="pay-box">
@@ -228,40 +183,27 @@ src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=
 <img src="https://download.logo.wine/logo/PhonePe/PhonePe-Logo.wine.png">
 <div class="pay-name">PhonePe</div>
 </div>
-<button class="pay-btn"onclick="window.location.href='upi://pay?pa=8400672605@mbk&pn=Payment&am=2943.46&cu=INR'">Pay</button>
+<button class="pay-btn"
+onclick="window.location.href='upi://pay?pa=8400672605@mbk&pn=Payment&am=2943.46&cu=INR'">
+Pay</button>
 </div>
 
 <div class="manual">
 
-<div class="blue">
-1. Copy the below given UPI
-</div>
+<div class="blue">1. Copy UPI</div>
 
 <div class="upi-box">
 <input type="text" id="upi" value="8400672605@mbk">
 <button class="copy-btn" onclick="copyUPI()">Copy</button>
 </div>
 
-<div class="tip">
-Tip: Don't save the UPI, get new UPI every time.
-</div>
+<div class="tip">Tip: Don't save UPI, it changes every time.</div>
 
-<div class="blue">
-2. Need to enter your 12 Ref No (UTR)
-</div>
+<div class="blue">2. Enter 12 digit UTR</div>
 
-<input
-class="ref-input"
-type="text"
-id="utr"
-maxlength="12"
-placeholder="Enter 12 Digit UTR Number">
+<input class="ref-input" id="utr" maxlength="12" placeholder="Enter 12 Digit UTR">
 
-<button
-class="submit-btn"
-id="submitBtn"
-onclick="showSuccess()"
-disabled>
+<button class="submit-btn" id="submitBtn" onclick="showSuccess()" disabled>
 SUBMIT
 </button>
 
@@ -279,75 +221,90 @@ SUBMIT
 
 <script>
 
+let globalAmount = "2943.46";
+
+/* COPY UPI */
 function copyUPI(){
-navigator.clipboard.writeText(
-document.getElementById("upi").value
-);
+navigator.clipboard.writeText(document.getElementById("upi").value);
 alert("UPI Copied");
 }
 
-const utrInput=document.getElementById("utr");
-const submitBtn=document.getElementById("submitBtn");
+/* UTR validation */
+const utrInput = document.getElementById("utr");
+const submitBtn = document.getElementById("submitBtn");
 
-utrInput.addEventListener("input",function(){
-
-this.value=this.value.replace(/\D/g,'');
-
-if(this.value.length===12){
-submitBtn.disabled=false;
-}else{
-submitBtn.disabled=true;
-}
-
+utrInput.addEventListener("input", function(){
+this.value = this.value.replace(/\D/g,'');
+submitBtn.disabled = this.value.length !== 12;
 });
 
+/* SUCCESS */
 function showSuccess(){
-
-const utr=document.getElementById("utr").value;
-
+const utr = document.getElementById("utr").value;
 if(!/^\d{12}$/.test(utr)){
-alert("Enter valid 12 digit UTR number");
+alert("Enter valid 12 digit UTR");
 return;
 }
 
 document.getElementById("paymentPage").style.display="none";
 document.getElementById("successBox").style.display="block";
-
 }
 
-let time=480;
+/* TIMER */
+let time = 480;
 
 setInterval(function(){
+let min = Math.floor(time/60);
+let sec = time%60;
 
-let min=Math.floor(time/60);
-let sec=time%60;
+document.getElementById("timer").innerText =
+String(min).padStart(2,'0') + ":" + String(sec).padStart(2,'0');
 
-document.getElementById("timer").innerHTML=
-String(min).padStart(2,'0') + ":" +
-String(sec).padStart(2,'0');
-
-if(time>0){
-time--;
-}
-
+if(time>0) time--;
 },1000);
 
+/* QR UPDATE */
 function updateQR(){
+let upi = document.getElementById("upi").value;
 
-let upi=document.getElementById("upi").value;
-
-let upiLink=
+let upiLink =
 "upi://pay?pa="+encodeURIComponent(upi)+
-"&pn=Payment&cu=INR";
+"&pn=Payment&am="+globalAmount+
+"&cu=INR";
 
-document.getElementById("qrCode").src=
+document.getElementById("qrCode").src =
 "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="
 +encodeURIComponent(upiLink);
-
 }
 
+/* URL PARAMS */
+function getParams(){
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const amount = urlParams.get("amount");
+const upi = urlParams.get("upi");
+
+if(amount){
+globalAmount = amount;
+document.getElementById("price").innerText = "₹" + amount;
+}
+
+if(upi){
+document.getElementById("upi").value = upi;
+}
+
+updateQR();
+}
+
+/* RUN ON LOAD */
+window.onload = function(){
+getParams();
+};
+
+/* live UPI change QR */
 document.getElementById("upi")
-.addEventListener("input",updateQR);
+.addEventListener("input", updateQR);
 
 </script>
 
